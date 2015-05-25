@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+	<tx:annotation-driven />
+	
+	<bean id="dataSource" class="oracle.jdbc.pool.OracleDataSource">
+		<property name="driverType" value="oracle.jdbc.OracleDriver" />
+		<property name="URL" value="jdbc:oracle:thin:@127.0.0.1:1521/orcl" />
+		<property name="portNumber" value="1521" />
+		<property name="user" value="simple" />
+		<property name="password" value="simple" />
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+	</bean>
+ 
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
+	</bean> 
+	
+
+	<mvc:annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/jsp/" />
+		<property name="suffix" value=".jsp" />
+		<property name="order" value="2147483647" />
+	</bean>
+	
+	<context:component-scan base-package="controllers" />
+	<context:component-scan base-package="services" />
+	<context:component-scan base-package="repositories" />
+	
+	<!-- Tiles 2 -->
+	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+	 
+		<property name="viewClass">
+			<value>org.springframework.web.servlet.view.tiles2.TilesView</value>
+		</property>
+		 
+		<property name="order" value="1"/>
+	</bean>
+	<!-- <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+	 
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/views/tiles2/tiles2config.xml</value>
+			</list>
+		</property>
+	</bean> -->
+	
+
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames"> 
+			<list>
+				<value>classpath:message</value>
+			</list>
+		</property>
+		<property name="defaultEncoding" value="EUC-KR" />
+	</bean>
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+
+	<mvc:interceptors>
+		
+		<!-- 로그인 안한 유저의 페이지는 자동적으로 /simple url로 이동한다 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/member/editUserInfoInput" />
+			<mvc:mapping path="/bbs/writeForm" />
+			
+			<bean class="com.gite.simple.interceptors.LoginInterceptor" />
+		</mvc:interceptor>
+		
+		<!-- 로그인 안한 유저는 빈 화면창을 보여준다 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/member/prePasswordChangeForm" />
+			<mvc:mapping path="/member/passwordChangeForm" />
+			<mvc:mapping path="/member/changePasswordApply" />
+		
+			<bean class="com.gite.simple.interceptors.NoLoginEmptyPageInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	<bean id="bbsPaging" class="com.gite.simple.util.BbsPaging" />
+	<!-- <bean id="bbsPaging2" class="util.BbsPaging2" /> -->
+	
+</beans>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+       
+<tiles-definitions>
+	 <definition name="basic" template="/WEB-INF/views/tiles2/template/basic.jsp">
+	 	<put-attribute name="title" value="simple web 2" />
+	 	<put-attribute name="topMenus" value="/WEB-INF/views/tiles2/part/topMenus.jsp" />
+	 	<put-attribute name="body" value="/WEB-INF/views/tiles2/part/body/basic_body.jsp" />
+	 	<put-attribute name="footer" value="/WEB-INF/views/tiles2/part/footer.jsp" />
+	 </definition>
+	 
+ 	<definition name="home" extends="basic" />
+ 
+ 	<definition name="bbsList" extends="basic">
+ 		<put-attribute name="body" value="/WEB-INF/views/tiles2/part/body/bbsList_body.jsp" />
+ 	</definition>
+ 
+</tiles-definitions>

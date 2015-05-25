@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="users">
+ 	<select id="getIdCount" parameterType="string" resultType="_int">
+ 		select count(*) from users where id = #{id}
+ 	</select>
+ 
+ 	<select id="insertNewMember" parameterType="com.gite.simple.beans.JoinBean">
+ 		insert into users(user_no, id, password, name) values (seq_users_no.nextval, #{id}, #{password}, #{name})
+ 	</select>
+ 	
+ 	<select id="login" parameterType="com.gite.simple.beans.LoginCommand" resultType="com.gite.simple.beans.LoginInfoSessionBean" >
+ 		select 
+ 			user_no "userNo", 
+ 			id, 
+ 			password, 
+ 			name 
+		from
+			users 
+		where 
+			id = #{id} and password = #{password}
+ 	</select>
+ 	
+ 	<update id="editUserInfo" parameterType="com.gite.simple.beans.UserInfoCommand">
+ 		update users set
+ 			name = #{name}
+		where
+			user_no = #{userNo}
+ 	</update>
+ 	
+ 	<update id="changePassword" parameterType="com.gite.simple.beans.PasswordChangeCommand">
+ 		update users set password = #{password} where user_no = #{userNo}
+ 	</update>
+ 
+</mapper>

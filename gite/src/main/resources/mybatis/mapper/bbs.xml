@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="bbs">
+
+	<insert id="insertNewArticle" parameterType="com.gite.simple.beans.BbsCommand">
+		insert into bbs(bbs_no, title, pre_contents, content, reg_date, view_cnt, writer_no)
+		values (seq_bbs_no.nextval, #{title}, #{preContents}, #{content}, #{regDateDateType}, #{viewCnt}, #{userNo})
+	</insert>
+	
+	<select id="getArticleList" parameterType="hashmap" resultType="com.gite.simple.beans.BbsCommand">
+		select
+			sub1.bbs_no "bbsNo", 
+			
+			sub1.title "title", 
+			
+			case when length(sub1.pre_contents) >= 99 then sub1.pre_contents || '...' 
+				else sub1.pre_contents end "preContents", 
+			 
+			case round(sysdate-sub1.reg_date, 0) when 0 then to_char(sub1.reg_Date, 'hh:mi:ss') 
+				else to_char(sub1.reg_date, 'rr/mm/dd') end "regDateStringType",
+  		
+  			sub1.view_cnt "viewCnt",
+  		
+			sub1.writer_id "userId"
+		from
+			(
+				select
+					/*+ index_desc(bbs, C_BBS_BBS_NO_PK)*/
+					rownum rn,
+					bbs.bbs_no, 
+					bbs.title, 
+					bbs.pre_contents,
+					bbs.view_cnt, 
+					bbs.reg_date, 
+					users.id writer_id
+				from
+					bbs, users
+				<where>
+					and bbs.writer_no = users.user_no
+					<if test="keywords != null">
+						<foreach collection="keywords" item="item" separator=" ">
+							or upper(title) like upper('%' || #{item} || '%') 
+						</foreach>
+					</if>
+				
+				</where>
+			)sub1
+			
+		where
+			sub1.rn between #{startRowNum} and #{endRowNum}
+	</select>
+	
+	<select id="getTotalCntOfArticles" parameterType="hashmap" resultType="_int">
+		select 
+			count(*)
+		from
+			bbs
+		<where>
+			<if test="keywords != null">
+				<foreach collection="keywords" item="item" separator=" ">
+					or upper(title) like upper('%' || #{item} || '%')
+				</foreach>
+			</if>
+		</where>
+	
+	</select>
+	
+	<select id="getArticle" parameterType="string" resultType="com.gite.simple.beans.BbsCommand">
+		select
+			bbs.bbs_no "bbsNo", bbs.title, bbs.content "content", 
+			case round(sysdate-bbs.reg_date, 0) when 0 then to_char(bbs.reg_date, 'hh:mi:ss') else to_char(bbs.reg_date, 'yyyy/mm/dd') end "regDateStringType", 
+			bbs.view_cnt "viewCnt", users.user_no "userNo", users.id "userId"
+		from
+			bbs, users
+		where
+			users.user_no = bbs.writer_no
+			and bbs_no = #{bbsNo}
+	</select>
+
+	<select id="addViewCnt" parameterType="string">
+		update bbs
+			set view_cnt = (select view_cnt+1 from bbs where bbs_no = #{bbsNo})
+		where
+			bbs_no = #{bbsNo} 
+	</select>
+	
+	<select id="getReplies" parameterType="string" resultType="com.gite.simple.beans.ReplyCommand">
+		select
+			/*+ index_desc(bbs_reply, c_bbs_reply__reply_no_pk) */
+			bbs_reply.reply_no "replyNo",
+			users.id "writerId",
+			bbs_reply.content "content"
+		from
+			bbs_reply, users
+		where
+			bbs_reply.bbs_no = #{bbs_no}
+			and bbs_reply.writer_no = users.user_no
+	</select>
+	
+	<insert id="addReply" parameterType="com.gite.simple.beans.ReplyCommand">
+		insert into bbs_reply (reply_no, bbs_no, writer_no, content)
+		 values (seq_bbs_reply_reply_no.nextval, #{bbsNo}, #{writerNo}, #{content})
+	</insert>
+
+</mapper>

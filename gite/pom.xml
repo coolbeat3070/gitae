@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>my.smarthomepage</groupId>
+	<artifactId>net</artifactId>
+	<name>mvc</name>
+	<packaging>war</packaging>
+	<version>1.0.0-BUILD-SNAPSHOT</version>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		
+	
+		<!-- AspectJ -->
+		<version.aspectj>1.6.10</version.aspectj>
+		<!-- Jackson -->
+		<version.jackson>2.1.4</version.jackson>
+		<!-- Java -->
+		<version.java>1.7</version.java>
+		<!-- Logging -->
+		<version.slf4j>1.6.6</version.slf4j>
+		<!-- MyBatis -->
+		<version.mybatis>3.2.3</version.mybatis>
+		<version.mybatis.spring>1.2.1</version.mybatis.spring>
+		<!-- Servlet -->
+		<version.el>2.2</version.el>
+		<version.jstl>1.2</version.jstl>
+		<version.jsp>2.1</version.jsp>
+		<version.servlet>2.5</version.servlet>
+		<!-- Spring -->
+		<version.spring>3.2.5.RELEASE</version.spring>
+		<!-- Spring-security -->
+		<version.spring.security>3.2.4.RELEASE</version.spring.security>
+		<!-- Test -->
+		<version.junit>4.11</version.junit>
+	</properties>
+	<dependencies>
+	
+	<!-- Jersey 
+	<dependency>
+	<groupId>com.sun.jersey</groupId>
+	<artifactId>jersey-server</artifactId>
+	<version>1.11</version>
+</dependency>
+	<dependency>
+		<groupId>com.sun.jersey</groupId>
+		<artifactId>jersey-servlet</artifactId>
+		<version>1.11</version>
+	</dependency>-->
+<!-- 	<dependency>
+		<groupId>com.sun.jersey</groupId>
+		<artifactId>jersey-json</artifactId>
+		<version>1.1.1-ea</version>
+	</dependency>
+	<dependency>
+		<groupId>com.sun.jersey</groupId>
+		<artifactId>jersey-core</artifactId>
+		<version>1.1.1-ea</version>
+	</dependency> -->
+	<!-- <dependency>
+		<groupId>com.sun.jersey</groupId>
+		<artifactId>jersey-client</artifactId>
+		<version>1.1.1-ea</version>
+	</dependency>
+	<dependency>
+		<groupId>com.sun.jersey.contribs</groupId>
+		<artifactId>jersey-spring</artifactId>
+		<version>1.1.1-ea</version>
+	</dependency>
+	<dependency>
+		<groupId>javax.ws.rs</groupId>
+		<artifactId>jsr311-api</artifactId>
+		<version>1.1</version>
+	</dependency> -->
+	
+	
+		<!-- AOP -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${version.aspectj}</version>
+		</dependency>	
+		
+		 <!-- 공통컴포넌트 시작 -->
+		 
+		 
+		<!-- 
+		 
+		Apache 
+		
+		
+		
+		-->
+		<dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+            <version>1.8.1</version>
+        </dependency>
+         <!-- FTP용 3rd party 라이브러리 -->
+        <dependency>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId>
+            <version>3.3</version>
+        </dependency>
+         <!-- Email -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-email</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+       
+        <!-- AspectJ -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${version.aspectj}</version>
+        </dependency> 
+        <dependency>
+    <groupId>org.aspectj</groupId>
+    <artifactId>aspectjweaver</artifactId>
+    <version>${version.aspectj}</version>
+</dependency>   
+		<!-- DB -->
+		<dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.23</version>
+        </dependency>
+		<dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${version.spring}</version>
+        </dependency>
+		<dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-dbcp</artifactId>
+            <version>7.0.47</version>
+        </dependency>
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2.0.3</version>
+		</dependency>
+		<!-- Jackson -->
+		<dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${version.jackson}</version>
+        </dependency>
+         <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${version.slf4j}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${version.slf4j}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${version.slf4j}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.15</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.mail</groupId>
+					<artifactId>mail</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.jms</groupId>
+					<artifactId>jms</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jdmk</groupId>
+					<artifactId>jmxtools</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jmx</groupId>
+					<artifactId>jmxri</artifactId>
+				</exclusion>
+			</exclusions>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- @Inject -->
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+		<!-- MyBatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${version.mybatis}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>${version.mybatis.spring}</version>
+		</dependency>	
+		<!-- 	Spring Security 	-->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${version.spring.security}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${version.spring.security}</version>
+		</dependency>
+	
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${version.spring.security}</version>
+		</dependency>	
+		<dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${version.spring.security}</version>
+        </dependency> 
+
+	<dependency>
+		<groupId>cglib</groupId> <!-- call refresh error -->
+		<artifactId>cglib</artifactId>
+		<version>2.2.2</version>
+	</dependency>
+	<dependency>
+	<groupId>cglib</groupId>
+	<artifactId>cglib-nodep</artifactId>
+	<version>2.2.2</version>
+</dependency>
+	
+	<dependency>
+		<groupId>cglib</groupId>
+		<artifactId>cglib-full</artifactId>
+		<version>2.0.2</version>
+	</dependency>
+		<!-- Servlet -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>${version.servlet}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>${version.jsp}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${version.spring}</version>
+			<exclusions>
+				<!-- Exclude Commons Logging in favor of SLF4j -->
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				 </exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${version.spring}</version>
+		</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-core</artifactId>
+		<version>${version.spring}</version>
+	</dependency>		
+		
+		<!-- Test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${version.junit}</version>
+			<scope>test</scope>
+		</dependency>        
+	</dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <additionalProjectnatures>
+                        <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+                    </additionalProjectnatures>
+                    <additionalBuildcommands>
+                        <buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
+                    </additionalBuildcommands>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>true</downloadJavadocs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <compilerArgument>-Xlint:all</compilerArgument>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <configuration>
+                    <mainClass>org.test.int1.Main</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+	<repositories>
+	<!-- Jersey -->
+	<repository>
+		<id>snapshot-repository.java.net</id>
+		<name>Java.net Snapshot Repository for Maven</name>
+		<url>https://maven.java.net/content/repositories/snapshots/</url>
+		<layout>default</layout>
+	</repository>
+	<!-- JDBC -->
+		<repository>
+			<id>jdbc</id>
+			<url>http://mesir.googlecode.com/svn/trunk/mavenrepo</url>
+		</repository>
+		<repository>
+			<id>central</id>
+			<url>http://repo1.maven.org/maven2/</url>
+		</repository>
+		<repository>
+			<id>oracle</id>
+			<name>ORACLE JDBC Repository</name>
+			<url>http://maven.jahia.org/maven2</url>
+		</repository>
+		<repository>
+		<id>mesir-repo</id>
+		<url>http://mesir.googlecode.com/svn/trunk/mavenrepo</url>
+	</repository>
+	 <repository>
+      <id>codelds</id>  <!-- oralce 에러가 사라짐 -->
+      <url>https://code.lds.org/nexus/content/groups/main-repo</url>
+    </repository>
+	</repositories>
+</project>
